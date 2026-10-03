@@ -13,7 +13,16 @@ public class ScoreBoard {
     }
 
     public void startMatch(String homeTeam, String awayTeam) {
-        matches.add(new Match(homeTeam, awayTeam, 0, 0));
+        Match match = new Match(homeTeam, awayTeam, 0, 0);
+        if (isPlaying(homeTeam)) {
+            throw new IllegalStateException("Team is already playing: " + homeTeam);
+        }
+
+        if (isPlaying(awayTeam)) {
+            throw new IllegalStateException("Team is already playing: " + awayTeam);
+        }
+
+        matches.add(match);
     }
 
     public void updateScore(String homeTeam, String awayTeam, int homeScore, int awayScore) {
@@ -28,5 +37,9 @@ public class ScoreBoard {
 
     public void finishMatch(String homeTeam, String awayTeam) {
         matches.removeIf(match -> match.isBetween(homeTeam, awayTeam));
+    }
+
+    private boolean isPlaying(String team) {
+        return matches.stream().anyMatch(m -> m.homeTeam().equals(team) || m.awayTeam().equals(team));
     }
 }

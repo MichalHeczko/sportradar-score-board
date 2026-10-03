@@ -101,4 +101,18 @@ class ScoreBoardTest {
         assertEquals(List.of(new Match("Mexico", "Canada", 1, 0)), board.getSummary());
     }
 
+    @Test
+    void cannotStartMatchForTeamAlreadyPlaying() {
+        board.startMatch("Mexico", "Canada");
+
+        assertThrows(IllegalStateException.class, () -> board.startMatch("Spain", "Mexico"));
+    }
+
+    @Test
+    void cannotStartSameMatchTwice() {
+        board.startMatch("Mexico", "Canada");
+
+        assertThrows(IllegalStateException.class, () -> board.startMatch("Mexico", "Canada"));
+    }
+
 }
