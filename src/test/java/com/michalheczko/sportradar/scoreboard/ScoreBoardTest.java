@@ -21,4 +21,13 @@ class ScoreBoardTest {
         assertEquals(List.of(new Match("Mexico", "Canada", 0, 0)), board.getSummary());
     }
 
+    @Test
+    void updateMatchScore() {
+        board.startMatch("Mexico", "Canada");
+
+        board.updateScore("Mexico", "Canada", 0, 1);
+
+        assertEquals(List.of(new Match("Mexico", "Canada", 0, 1)), board.getSummary());
+    }
+
 }

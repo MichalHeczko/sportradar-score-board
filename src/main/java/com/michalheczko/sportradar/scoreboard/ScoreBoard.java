@@ -14,4 +14,15 @@ public class ScoreBoard {
     public void startMatch(String homeTeam, String awayTeam) {
         matches.add(new Match(homeTeam, awayTeam, 0, 0));
     }
+
+    public void updateScore(String homeTeam, String awayTeam, int homeScore, int awayScore) {
+        for (Match match : matches) {
+            if (match.homeTeam().equals(homeTeam) && match.awayTeam().equals(awayTeam)) {
+                matches.remove(match);
+                break;
+            }
+        }
+        
+        matches.add(new Match(homeTeam, awayTeam, homeScore, awayScore));
+    }
 }
