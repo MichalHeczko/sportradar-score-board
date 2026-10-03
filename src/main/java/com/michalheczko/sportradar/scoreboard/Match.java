@@ -6,4 +6,7 @@ public record Match(String homeTeam, String awayTeam, int homeScore, int awaySco
         return this.homeTeam.equals(homeTeam) && this.awayTeam.equals(awayTeam);
     }
 
+    public int totalScore() {
+        return homeScore + awayScore;
+    }
 }

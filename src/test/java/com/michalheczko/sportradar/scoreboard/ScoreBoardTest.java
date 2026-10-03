@@ -63,4 +63,20 @@ class ScoreBoardTest {
                 new Match("Germany", "France", 0, 0)), board.getSummary());
     }
 
+    @Test
+    void summaryIsOrderedByTotalScoreDescending() {
+        board.startMatch("Mexico", "Canada");
+        board.startMatch("Spain", "Brazil");
+        board.startMatch("Germany", "France");
+
+        board.updateScore("Mexico", "Canada", 0, 5);
+        board.updateScore("Spain", "Brazil", 10, 2);
+
+        assertEquals(List.of(
+                new Match("Spain", "Brazil", 10, 2),
+                new Match("Mexico", "Canada", 0, 5),
+                new Match("Germany", "France", 0, 0)), board.getSummary());
+
+    }
+
 }
