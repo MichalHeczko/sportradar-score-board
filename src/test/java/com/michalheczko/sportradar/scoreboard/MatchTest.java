@@ -42,4 +42,14 @@ class MatchTest {
     void rejectsSameTeamOnBothSides() {
         assertThrows(IllegalArgumentException.class, () -> new Match("Mexico", "Mexico", 0, 0));
     }
+
+    @Test
+    void rejectsNegativeHomeScore() {
+        assertThrows(IllegalArgumentException.class, () -> new Match("Mexico", "Canada", -1, 0));
+    }
+
+    @Test
+    void rejectsNegativeAwayScore() {
+        assertThrows(IllegalArgumentException.class, () -> new Match("Mexico", "Canada", 0, -1));
+    }
 }

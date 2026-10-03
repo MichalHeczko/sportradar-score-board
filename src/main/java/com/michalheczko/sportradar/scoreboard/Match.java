@@ -12,6 +12,12 @@ public record Match(String homeTeam, String awayTeam, int homeScore, int awaySco
         if (homeTeam.equals(awayTeam)) {
             throw new IllegalArgumentException("Team cannot play against itself");
         }
+        if (homeScore < 0) {
+            throw new IllegalArgumentException("Home team score must be equal or greater than zero");
+        }
+        if (awayScore < 0) {
+            throw new IllegalArgumentException("Away team score must be equal or greater than zero");
+        }
     }
 
     public boolean isBetween(String homeTeam, String awayTeam) {
