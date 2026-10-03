@@ -3,20 +3,19 @@ package com.michalheczko.sportradar.scoreboard;
 public record Match(String homeTeam, String awayTeam, int homeScore, int awayScore) {
 
     public Match {
-        if (homeTeam == null || homeTeam.isBlank()) {
-            throw new IllegalArgumentException("Home team name must not be blank");
-        }
-        if (awayTeam == null || awayTeam.isBlank()) {
-            throw new IllegalArgumentException("Away team name must not be blank");
-        }
+        requireTeamName(homeTeam, "Home");
+        requireTeamName(awayTeam, "Away");
         if (homeTeam.equals(awayTeam)) {
-            throw new IllegalArgumentException("Team cannot play against itself");
+            throw new IllegalArgumentException("A team cannot play against itself: " + homeTeam);
         }
-        if (homeScore < 0) {
-            throw new IllegalArgumentException("Home team score must be equal or greater than zero");
+        if (homeScore < 0 || awayScore < 0) {
+            throw new IllegalArgumentException("Score cannot be negative: " + homeScore + " - " + awayScore);
         }
-        if (awayScore < 0) {
-            throw new IllegalArgumentException("Away team score must be equal or greater than zero");
+    }
+
+    private static void requireTeamName(String name, String side) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException(side + " team name must not be blank");
         }
     }
 
