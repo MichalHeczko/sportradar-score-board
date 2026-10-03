@@ -125,4 +125,28 @@ class ScoreBoardTest {
         assertThrows(IllegalStateException.class, () -> board.finishMatch("Mexico", "Canada"));
     }
 
+    @Test
+    void scoreCanBeDecreased() {
+        board.startMatch("Mexico", "Canada");
+        board.updateScore("Mexico", "Canada", 2, 1);
+
+        board.updateScore("Mexico", "Canada", 1, 1);
+
+        assertEquals(List.of(new Match("Mexico", "Canada", 1, 1)), board.getSummary());
+    }
+
+    @Test
+    void finishedMatchCanBeStartedAgainAsMostRecent() {
+        board.startMatch("Mexico", "Canada");
+        board.startMatch("Spain", "Brazil");
+        board.finishMatch("Mexico", "Canada");
+
+        board.startMatch("Mexico", "Canada");
+
+        assertEquals(List.of(
+                new Match("Mexico", "Canada", 0, 0),
+                new Match("Spain", "Brazil", 0, 0)), board.getSummary());
+    }
+
+
 }
