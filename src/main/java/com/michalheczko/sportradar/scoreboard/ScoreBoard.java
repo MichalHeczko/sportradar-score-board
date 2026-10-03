@@ -33,10 +33,13 @@ public class ScoreBoard {
                 return;
             }
         }
+        throw new IllegalStateException("No running match: " + homeTeam + " - " + awayTeam);
     }
 
     public void finishMatch(String homeTeam, String awayTeam) {
-        matches.removeIf(match -> match.isBetween(homeTeam, awayTeam));
+        if (!matches.removeIf(match -> match.isBetween(homeTeam, awayTeam))) {
+            throw new IllegalStateException("No running match: " + homeTeam + " - " + awayTeam);
+        }
     }
 
     private boolean isPlaying(String team) {

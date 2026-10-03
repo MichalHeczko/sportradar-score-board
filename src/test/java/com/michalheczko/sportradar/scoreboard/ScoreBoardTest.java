@@ -115,4 +115,14 @@ class ScoreBoardTest {
         assertThrows(IllegalStateException.class, () -> board.startMatch("Mexico", "Canada"));
     }
 
+    @Test
+    void cannotUpdateScoreOfUnknownMatch() {
+        assertThrows(IllegalStateException.class, () -> board.updateScore("Mexico", "Canada", 1, 0));
+    }
+
+    @Test
+    void cannotFinishUnknownMatch() {
+        assertThrows(IllegalStateException.class, () -> board.finishMatch("Mexico", "Canada"));
+    }
+
 }
