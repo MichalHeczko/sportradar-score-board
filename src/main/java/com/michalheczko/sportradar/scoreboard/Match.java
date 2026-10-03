@@ -1,4 +1,4 @@
 package com.michalheczko.sportradar.scoreboard;
 
-public class Match {
+public record Match(String homeTeam, String awayTeam, int homeScore, int awayScore) {
 }
