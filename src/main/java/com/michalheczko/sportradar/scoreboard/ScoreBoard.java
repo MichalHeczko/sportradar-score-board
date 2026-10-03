@@ -24,4 +24,8 @@ public class ScoreBoard {
             }
         }
     }
+
+    public void finishMatch(String homeTeam, String awayTeam) {
+        matches.removeIf(match -> match.homeTeam().equals(homeTeam) && match.awayTeam().equals(awayTeam));
+    }
 }

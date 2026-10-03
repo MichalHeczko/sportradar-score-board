@@ -42,4 +42,25 @@ class ScoreBoardTest {
                 new Match("Spain", "Brazil", 0, 0)), board.getSummary());
     }
 
+    @Test
+    void finishMatch() {
+        board.startMatch("Mexico", "Canada");
+        board.finishMatch("Mexico", "Canada");
+
+        assertTrue(board.getSummary().isEmpty());
+    }
+
+    @Test
+    void finishMatchRemovesOnlyTheGivenMatch() {
+        board.startMatch("Mexico", "Canada");
+        board.startMatch("Spain", "Brazil");
+        board.startMatch("Germany", "France");
+
+        board.finishMatch("Spain", "Brazil");
+
+        assertEquals(List.of(
+                new Match("Mexico", "Canada", 0, 0),
+                new Match("Germany", "France", 0, 0)), board.getSummary());
+    }
+
 }
