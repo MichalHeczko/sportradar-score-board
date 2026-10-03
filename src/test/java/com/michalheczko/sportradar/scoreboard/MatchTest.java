@@ -37,4 +37,9 @@ class MatchTest {
     void rejectsInvalidAwayTeamName(String name) {
         assertThrows(IllegalArgumentException.class, () -> new Match("Mexico", name, 0, 0));
     }
+
+    @Test
+    void rejectsSameTeamOnBothSides() {
+        assertThrows(IllegalArgumentException.class, () -> new Match("Mexico", "Mexico", 0, 0));
+    }
 }

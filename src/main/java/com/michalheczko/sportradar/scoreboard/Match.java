@@ -9,6 +9,9 @@ public record Match(String homeTeam, String awayTeam, int homeScore, int awaySco
         if (awayTeam == null || awayTeam.isBlank()) {
             throw new IllegalArgumentException("Away team name must not be blank");
         }
+        if (homeTeam.equals(awayTeam)) {
+            throw new IllegalArgumentException("Team cannot play against itself");
+        }
     }
 
     public boolean isBetween(String homeTeam, String awayTeam) {
