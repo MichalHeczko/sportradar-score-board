@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ScoreBoardTest {
     private final ScoreBoard board = new ScoreBoard();
@@ -90,6 +89,16 @@ class ScoreBoardTest {
         assertEquals(List.of(
                 new Match("Argentina", "Australia", 3, 1),
                 new Match("Germany", "France", 2, 2)), board.getSummary());
+    }
+
+    @Test
+    void rejectedUpdateLeavesScoreUnchanged() {
+        board.startMatch("Mexico", "Canada");
+        board.updateScore("Mexico", "Canada", 1, 0);
+
+        assertThrows(IllegalArgumentException.class, () -> board.updateScore("Mexico", "Canada", -1, 0));
+
+        assertEquals(List.of(new Match("Mexico", "Canada", 1, 0)), board.getSummary());
     }
 
 }
