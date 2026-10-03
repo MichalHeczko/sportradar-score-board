@@ -3,6 +3,7 @@ package com.michalheczko.sportradar.scoreboard;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -58,9 +59,9 @@ class ScoreBoardTest {
 
         board.finishMatch("Spain", "Brazil");
 
-        assertEquals(List.of(
-                new Match("Mexico", "Canada", 0, 0),
-                new Match("Germany", "France", 0, 0)), board.getSummary());
+        assertEquals(
+                Set.of(new Match("Mexico", "Canada", 0, 0), new Match("Germany", "France", 0, 0)),
+                Set.copyOf(board.getSummary()));
     }
 
     @Test
@@ -77,6 +78,18 @@ class ScoreBoardTest {
                 new Match("Mexico", "Canada", 0, 5),
                 new Match("Germany", "France", 0, 0)), board.getSummary());
 
+    }
+
+    @Test
+    void matchesWithSameTotalScoreAreOrderedByMostRecentlyStarted() {
+        board.startMatch("Germany", "France");
+        board.startMatch("Argentina", "Australia");
+        board.updateScore("Germany", "France", 2, 2);
+        board.updateScore("Argentina", "Australia", 3, 1);
+
+        assertEquals(List.of(
+                new Match("Argentina", "Australia", 3, 1),
+                new Match("Germany", "France", 2, 2)), board.getSummary());
     }
 
 }

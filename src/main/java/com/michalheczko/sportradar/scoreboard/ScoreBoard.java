@@ -9,7 +9,7 @@ public class ScoreBoard {
     private final List<Match> matches = new ArrayList<>();
 
     public List<Match> getSummary() {
-        return matches.stream().sorted(Comparator.comparingInt(Match::totalScore).reversed()).toList();
+        return matches.reversed().stream().sorted(Comparator.comparingInt(Match::totalScore).reversed()).toList();
     }
 
     public void startMatch(String homeTeam, String awayTeam) {
